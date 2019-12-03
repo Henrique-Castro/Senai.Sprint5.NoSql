@@ -3,7 +3,7 @@ mongoimport --db {database name} -c {collection name} --type {source file type} 
 To access the db:
 
 C:\Program Files\MongoDB\Server\4.0\bin 
-cmd{
+--READ FUNCTIONS--------------------------------------------------------------------------------------------------------------------------------------------------------
 	mongo (access mongo terminal)
 	show dbs (list all dbs existing)
 	use {db name}
@@ -29,4 +29,16 @@ cmd{
 	db.{collection name}.find().sort({"_id":-1}).pretty() //Dentro de sort(), -1 organizará de forma decrescente e 1 de forma crescente
 
 	desafio: db.tasks.aggregate([{$project:{"descricao":2,"descricao_lenght":{$strLenCP:"$descricao"}}},{$sort:{"descricao_lenght":-1}}])
-}
+
+
+--CREATE FUNCTIONS-------------------------------------------------------------------------------------------------------------------------------------------------------
+db.{collection name}.insert({any document}) //INSERT ONE
+
+
+db.tasks.insertMany([{titulo:"Titulo U", descricao:"Java", concluida:true},{titulo:"Titulo O",descricao:"CSharp",concluida:false},{titulo:"Titulo P", descricao:"Firebase"},{titulo:"Titulo Y", descricao:"Microsoft"},{titulo:"Titulo R", descricao:"Oracle", dataDeInclusao: new Date()}]		
+
+--UPDATE FUNCTIONS--------------------------------------------------------------------------------------------------------------------------------------------------------
+db.tasks.update({"_id":ObjectId("xxxxxx")},{$set:{titulo:"TituloUava", descricao:""}})
+
+--DELETE FUNCTIONS--------------------------------------------------------------------------------------------------------------------------------------------------------
+db.tasks.remove({"_id":ObjectId("xxxxx"})
