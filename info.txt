@@ -1,0 +1,32 @@
+mongoimport --db {database name} -c {collection name} --type {source file type} --file {source file name} --headerline (this one get the first line of the source and makes it our header)
+
+To access the db:
+
+C:\Program Files\MongoDB\Server\4.0\bin 
+cmd{
+	mongo (access mongo terminal)
+	show dbs (list all dbs existing)
+	use {db name}
+	show collections
+	db.{collection name}.count()
+	db.{collection name}.find().pretty() (lista os registros)
+			    .findOne()
+			    .find().limit(3) (lista os 3 primeiros)
+			    .find({ "titulo" : "Titulo A" })  (find com confição)
+				 ({ "titulo" : "Titulo H" , descricao : "bootstrap" })  (duas ou mais condições do tipo && )
+	db.{collection name}.find({
+				$or : 
+				[{titulo: "Titulo A"},			(duas ou mais condições do tipo || )
+				{titulo: "Titulo B"}]
+				 }).pretty()			
+
+	db.tasks.find({titulo : {$in : ["Titulo A", "Titulo B"]}}).pretty()
+
+	db.{collection name}.find({titulo: /e/}).pretty() (busca todos os valores que contém e)
+	db.{collection name}.find({titulo: /e$/}).pretty() (busca todos os valores que terminam com "e")
+	db.{collection name}.find({titulo: /^e/}).pretty() (busca todos os valores que iniciam com "e")
+
+	db.{collection name}.find().sort({"_id":-1}).pretty() //Dentro de sort(), -1 organizará de forma decrescente e 1 de forma crescente
+
+	desafio: db.tasks.aggregate([{$project:{"descricao":2,"descricao_lenght":{$strLenCP:"$descricao"}}},{$sort:{"descricao_lenght":-1}}])
+}
